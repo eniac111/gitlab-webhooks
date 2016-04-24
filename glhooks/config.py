@@ -7,7 +7,7 @@ import re
 import logging
 
 from logging.handlers import RotatingFileHandler
-from .mailer import SmtpMailer
+#from .mailer import SmtpMailer
 from .utils import cached_property
 
 try:
@@ -53,12 +53,12 @@ class Configs(object):
     def __getitem__(self, key):
         return dict(self._params[key])
 
-    @cached_property
-    def mailer(self):
-        configs = self["mailer"]
-        del configs["sender"]
-
-        return SmtpMailer(**configs)
+#    @cached_property
+#    def mailer(self):
+#        configs = self["mailer"]
+#        del configs["sender"]
+#
+#        return SmtpMailer(**configs)
 
     @cached_property
     def logger(self):

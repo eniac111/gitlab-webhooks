@@ -5,7 +5,7 @@ from __future__ import division, print_function, unicode_literals
 
 import json
 
-from .mailer import HtmlMessage
+#from .mailer import HtmlMessage
 
 try:
     from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -43,7 +43,7 @@ class GitlabWebhookHandler(BaseHTTPRequestHandler):
             self.handle_commits_data(json_data)
         except Exception as e:
             self.context.logger.exception("Error during parsing of data", json_data)
-            self._send_email(json_data, e)
+       #     self._send_email(json_data, e)
             self._send_response_message(self.RESPONSE_MESSAGE, status_code=500)
         else:
             self._send_response_message(self.RESPONSE_MESSAGE)
@@ -57,22 +57,22 @@ class GitlabWebhookHandler(BaseHTTPRequestHandler):
         repo = Repository(repo_data["path"])
         repo.pull(branch=repo_data.get("branch"))
 
-    def _send_email(self, commits_json, exception):
-        MESSAGE = """
-        An error occured during GitLab webhook at server %(server.host)s.<br>
-        <strong>%(exception)r</strong><br>
-        Following JSON was received:<br><br>
-        <pre><code>%(json)s</code></pre>
-        """ % {
-            "server.host": self.context["server"]["host"],
-            "json": json.dumps(commits_json, indent=2),
-            "exception": exception,
-        }
-
-        emails = self._gather_emails(commits_json)
-        message = HtmlMessage(self.context["mailer"]["sender"], "Deploy error", MESSAGE)
-        message.add_recipients(*emails)
-        self.context.mailer(message)
+#    def _send_email(self, commits_json, exception):
+#        MESSAGE = """
+#        An error occured during GitLab webhook at server %(server.host)s.<br>
+#        <strong>%(exception)r</strong><br>
+#        Following JSON was received:<br><br>
+#        <pre><code>%(json)s</code></pre>
+#        """ % {
+#            "server.host": self.context["server"]["host"],
+#            "json": json.dumps(commits_json, indent=2),
+#            "exception": exception,
+#        }
+#
+#        emails = self._gather_emails(commits_json)
+#        message = HtmlMessage(self.context["mailer"]["sender"], "Deploy error", MESSAGE)
+#        message.add_recipients(*emails)
+#        self.context.mailer(message)
 
     def _gather_emails(self, commits_json):
         emails = set()
