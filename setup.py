@@ -18,9 +18,9 @@ setup(
     version=glhooks.__version__,
     description="Service for automatic updating of git repositories from GitLab.",
     long_description=long_description,
-    author="Michal Belica",
-    author_email="miso.belica@gmail.com",
-    url="https://github.com/miso-belica/gitlab-webhooks",
+    author="Blagovest Petrov",
+    author_email="eniac111@gmail.com",
+    url="https://github.com/eniac111/gitlab-webhooks",
     license="Apache License, Version 2.0",
     keywords=[
         "Git",
